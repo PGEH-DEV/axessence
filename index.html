@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axessence Page mit Login-Button</title>
+  <style>
+    /* --- RESET --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* --- BODY / HINTERGRUND --- */
+    body {
+      background-color: #0c0c0c; /* Dunkler Ton passend zum KI-Bild */
+      overflow: hidden;          /* Verhindert Scrollen durch Animationen */
+      min-height: 100vh;
+    }
+
+    /* --- HERO-BEREICH MIT HINTERGRUNDBILD --- */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url("KI_head.webp") center center no-repeat;
+      background-size: cover;
+    }
+
+    /* --- CONTAINER FÜR DIE ANIMIERTEN ICONS --- */
+    .icons-container {
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Klicks ignorieren */
+      z-index: 1;
+    }
+
+    /* --- KI-ICONS SELBST --- */
+    .icon {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      bottom: -100px; 
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.95;
+
+      /* Deutlicher Glow + helle Kontur */
+      box-shadow:
+        0 0 12px 4px rgba(255,255,255,0.8),
+        inset 0 0 4px rgba(255,255,255,0.8);
+      border: 2px solid rgba(255,255,255,0.9);
+      border-radius: 50%;
+
+      background-size: cover;
+      background-position: center;
+      animation: floatUp 15s linear infinite;
+      animation-delay: var(--delay);
+    }
+
+    /* --- ANIMATION: VON UNTEN NACH OBEN --- */
+    @keyframes floatUp {
+      0% {
+        transform: translateX(-50%) translateY(0) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(-50%) translateY(-50%) scale(1);
+      }
+      100% {
+        transform: translateX(-50%) translateY(-1200%) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* 
+      LOGO-CONTAINER:
+      - Wir machen daraus ein Spalten-Layout (flex-direction: column),
+        damit Logo, Text und Button untereinander zentriert angeordnet werden.
+    */
+    .logo-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;   /* Logo oben, dann Text, dann Button */
+      align-items: center;      /* horizontal zentrieren */
+      justify-content: center;  /* vertikal zentrieren */
+      gap: 1rem;                /* Abstand zwischen den Elementen */
+      z-index: 2;
+      text-align: center;       /* Text mittig ausrichten */
+    }
+
+    .logo-container img {
+      max-width: 40%; 
+      height: auto;
+    }
+
+    /* --- TEXT UNTER DEM LOGO --- */
+    .info-text {
+      margin-top: 4rem; /* Beliebigen Wert einsetzen, z.B. 2rem, 50px etc. */
+      color: #ffffff;
+      font-size: 1.6rem;
+      max-width: 80%;
+      line-height: 1.4;
+    }
+
+    /* --- "STAY TUNED" BUTTON --- */
+    .stay-tuned-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stay-tuned-btn:hover {
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
+    }
+
+    /* 
+      LOGIN-BUTTON (UNTEN, MITTIG)
+      - Bleibt wie bisher
+    */
+    .login-button-container {
+      position: absolute;
+      bottom: 30px; /* Abstand vom unteren Rand */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3; /* über Icons und Logo */
+    }
+    .login-button-container img {
+      max-width: 200px; /* Breite anpassen */
+      height: auto;
+      cursor: pointer;  /* Zeigt "Hand" an bei Hover */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <!-- Hintergrund-Icons -->
+    <div class="icons-container" id="iconsContainer"></div>
+
+    <!-- Logo in der Mitte, darunter Text & "Stay tuned" Button -->
+    <div class="logo-container">
+      <img src="Axessence_white.png" alt="Axessence Logo">
+
+      <!-- Info-Text unter dem Logo -->
+      <p class="info-text">
+        In just a few weeks, we'll be going live to present our AI-powered solutions.<br />
+        Stay tuned – it's going to be worth it!
+      </p>
+
+      <!-- Stay Tuned Button -->
+      <button class="stay-tuned-btn">Stay tuned</button>
+    </div>
+
+    <!-- Login-Button unten mittig -->
+    <div class="login-button-container">
+      <img src="Login.png" alt="Login Button">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const iconsContainer = document.getElementById('iconsContainer');
+
+      // Beispiel-Links zu KI-Icons (PNG)
+      const iconUrls = [
+        "https://cdn-icons-png.flaticon.com/512/6209/6209298.png",
+        "https://cdn-icons-png.flaticon.com/512/6207/6207990.png",
+        "https://cdn-icons-png.flaticon.com/512/6207/6207984.png",
+        "https://cdn-icons-png.flaticon.com/512/10860/10860681.png",
+        "https://cdn-icons-png.flaticon.com/512/3252/3252607.png"
+      ];
+
+      const iconCount = 40; // Anzahl der Icons
+
+      for (let i = 0; i < iconCount; i++) {
+        const iconDiv = document.createElement('div');
+        iconDiv.classList.add('icon');
+
+        // Zufälliges Icon wählen
+        const randomIconUrl = iconUrls[Math.floor(Math.random() * iconUrls.length)];
+        iconDiv.style.backgroundImage = `url(${randomIconUrl})`;
+
+        // Zufällige Startverzögerung
+        const randomDelay = Math.random() * 10 + "s";
+        iconDiv.style.setProperty('--delay', randomDelay);
+
+        // Zufällige horizontale Position
+        const randomLeft = Math.random() * 100;
+        iconDiv.style.left = randomLeft + '%';
+
+        iconsContainer.appendChild(iconDiv);
+      }
+    });
+  </script>
+
+</body>
+</html>
