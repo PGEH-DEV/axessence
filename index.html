@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axessence Page mit Login-Button</title>
+  <title>Axessence Page</title>
   <style>
     /* --- RESET --- */
     * {
@@ -28,18 +28,24 @@
       background-size: cover;
     }
 
-    /* --- CONTAINER FÜR DIE ANIMIERTEN ICONS --- */
+    /* 
+      CONTAINER FÜR DIE ANIMIERTEN ICONS 
+      (liegen hinter dem Logo, da z-index = 1)
+    */
     .icons-container {
       position: absolute;
       top: 0; 
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* Klicks ignorieren */
+      pointer-events: none;
       z-index: 1;
     }
 
-    /* --- KI-ICONS SELBST --- */
+    /* 
+      ICONS SELBST 
+      – größer, mit deutlicherem Glow-Effekt 
+    */
     .icon {
       position: absolute;
       width: 80px;
@@ -62,7 +68,7 @@
       animation-delay: var(--delay);
     }
 
-    /* --- ANIMATION: VON UNTEN NACH OBEN --- */
+    /* ANIMATION: von unten nach oben */
     @keyframes floatUp {
       0% {
         transform: translateX(-50%) translateY(0) scale(0.8);
@@ -81,9 +87,9 @@
     }
 
     /* 
-      LOGO-CONTAINER:
-      - Wir machen daraus ein Spalten-Layout (flex-direction: column),
-        damit Logo, Text und Button untereinander zentriert angeordnet werden.
+      LOGO CONTAINER 
+      – zentriert in der Mitte, 
+      liegt über den Icons, da z-index: 2
     */
     .logo-container {
       position: absolute;
@@ -91,60 +97,18 @@
       width: 100%;
       height: 100%;
       display: flex;
-      flex-direction: column;   /* Logo oben, dann Text, dann Button */
-      align-items: center;      /* horizontal zentrieren */
-      justify-content: center;  /* vertikal zentrieren */
-      gap: 1rem;                /* Abstand zwischen den Elementen */
+      align-items: center;   /* Vertikal zentrieren */
+      justify-content: center; /* Horizontal zentrieren */
       z-index: 2;
-      text-align: center;       /* Text mittig ausrichten */
     }
 
+    /* LOGO SELBST 
+       Hier kannst du z.B. die max-Größe anpassen */
     .logo-container img {
       max-width: 40%; 
       height: auto;
     }
 
-    /* --- TEXT UNTER DEM LOGO --- */
-    .info-text {
-      margin-top: 4rem; /* Beliebigen Wert einsetzen, z.B. 2rem, 50px etc. */
-      color: #ffffff;
-      font-size: 1.6rem;
-      max-width: 80%;
-      line-height: 1.4;
-    }
-
-    /* --- "STAY TUNED" BUTTON --- */
-    .stay-tuned-btn {
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      background: transparent;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s ease, box-shadow 0.2s ease;
-    }
-    .stay-tuned-btn:hover {
-      background: rgba(255,255,255,0.2);
-      box-shadow: 0 0 8px rgba(255,255,255,0.8);
-    }
-
-    /* 
-      LOGIN-BUTTON (UNTEN, MITTIG)
-      - Bleibt wie bisher
-    */
-    .login-button-container {
-      position: absolute;
-      bottom: 30px; /* Abstand vom unteren Rand */
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3; /* über Icons und Logo */
-    }
-    .login-button-container img {
-      max-width: 200px; /* Breite anpassen */
-      height: auto;
-      cursor: pointer;  /* Zeigt "Hand" an bei Hover */
-    }
   </style>
 </head>
 <body>
@@ -153,23 +117,9 @@
     <!-- Hintergrund-Icons -->
     <div class="icons-container" id="iconsContainer"></div>
 
-    <!-- Logo in der Mitte, darunter Text & "Stay tuned" Button -->
+    <!-- Logo in der Mitte -->
     <div class="logo-container">
       <img src="Axessence_white.png" alt="Axessence Logo">
-
-      <!-- Info-Text unter dem Logo -->
-      <p class="info-text">
-        In just a few weeks, we'll be going live to present our AI-powered solutions.<br />
-        Stay tuned – it's going to be worth it!
-      </p>
-
-      <!-- Stay Tuned Button -->
-      <button class="stay-tuned-btn">Stay tuned</button>
-    </div>
-
-    <!-- Login-Button unten mittig -->
-    <div class="login-button-container">
-      <img src="Login.png" alt="Login Button">
     </div>
   </div>
 
@@ -186,7 +136,7 @@
         "https://cdn-icons-png.flaticon.com/512/3252/3252607.png"
       ];
 
-      const iconCount = 40; // Anzahl der Icons
+      const iconCount = 20; // Anzahl der Icons
 
       for (let i = 0; i < iconCount; i++) {
         const iconDiv = document.createElement('div');
