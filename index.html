@@ -125,15 +125,18 @@
       cursor: pointer;
     }
 
-    .bottom-links {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      z-index: 3;
-    }
+    .bottom-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 3;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px 0;
+}
 
-    .bottom-links a {
+.bottom-links a {
       background: transparent;
       color: white;
       text-decoration: none;
@@ -184,18 +187,20 @@
       </div>
       <div class="language-menu">
         <select id="languageSwitcher">
-          <option value="de">Deutsch 🇩🇪</option>
-          <option value="en">English 🇬🇧</option>
-          <option value="fr">Français 🇫🇷</option>
-          <option value="it">Italiano 🇮🇹</option>
-        </select>
+  <option value="de">Deutsch 🇩🇪</option>
+  <option value="en">English 🇬🇧</option>
+  <option value="fr">Français 🇫🇷</option>
+  <option value="it">Italiano 🇮🇹</option>
+  <option value="es">Español 🇪🇸</option>
+</select>
       </div>
     </div>
 
-    <div class="bottom-links">
-      <a href="#">Impressum</a>
-      <a href="#">Kontakt</a>
-    </div>
+    <div class="bottom-bar">
+      <div class="bottom-links">
+        <a href="#">Impressum</a>
+        <a href="#">Kontakt</a>
+      </div>
   </div>
 
   <script>
@@ -221,17 +226,21 @@
       }
 
       const translations = {
-        de: ["Produkte", "Pricing", "Technologie"],
-        en: ["Products", "Pricing", "Technology"],
-        fr: ["Produits", "Tarification", "Technologie"],
-        it: ["Prodotti", "Prezzi", "Tecnologia"]
-      };
+  de: ["Produkte", "Pricing", "Technologie", "Impressum", "Kontakt"],
+  en: ["Products", "Pricing", "Technology", "Imprint", "Contact"],
+  fr: ["Produits", "Tarification", "Technologie", "Mentions légales", "Contact"],
+  it: ["Prodotti", "Prezzi", "Tecnologia", "Note legali", "Contatto"],
+  es: ["Productos", "Precios", "Tecnología", "Aviso legal", "Contacto"]
+};
 
       document.getElementById("languageSwitcher").addEventListener("change", function() {
         const lang = this.value;
-        const [m1, m2, m3] = translations[lang];
+        const [m1, m2, m3, m4, m5] = translations[lang];
         document.getElementById("menu1").options[0].text = m1;
         document.getElementById("menu2").options[0].text = m2;
+        document.getElementById("menu3").options[0].text = m3;
+        document.querySelector(".bottom-links a:nth-child(1)").textContent = m4;
+        document.querySelector(".bottom-links a:nth-child(2)").textContent = m5;
         document.getElementById("menu3").options[0].text = m3;
       });
     });
