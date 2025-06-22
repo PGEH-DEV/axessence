@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Axessence Page</title>
   <style>
-    /* --- RESET --- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* --- BODY / HINTERGRUND --- */
     body {
-      background-color: #0c0c0c; /* Dunkler Ton passend zum KI-Bild */
-      overflow: hidden;          /* Verhindert Scrollen durch Animationen */
+      background-color: #0c0c0c;
+      overflow: hidden;
       min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
-    /* --- HERO-BEREICH MIT HINTERGRUNDBILD --- */
     .hero {
       position: relative;
       width: 100%;
@@ -28,13 +27,9 @@
       background-size: cover;
     }
 
-    /* 
-      CONTAINER FÜR DIE ANIMIERTEN ICONS 
-      (liegen hinter dem Logo, da z-index = 1)
-    */
     .icons-container {
       position: absolute;
-      top: 0; 
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;
@@ -42,33 +37,25 @@
       z-index: 1;
     }
 
-    /* 
-      ICONS SELBST 
-      – größer, mit deutlicherem Glow-Effekt 
-    */
     .icon {
       position: absolute;
       width: 80px;
       height: 80px;
-      bottom: -100px; 
+      bottom: -100px;
       left: 50%;
       transform: translateX(-50%);
       opacity: 0.95;
-
-      /* Deutlicher Glow + helle Kontur */
       box-shadow:
         0 0 12px 4px rgba(255,255,255,0.8),
         inset 0 0 4px rgba(255,255,255,0.8);
       border: 2px solid rgba(255,255,255,0.9);
       border-radius: 50%;
-
       background-size: cover;
       background-position: center;
       animation: floatUp 15s linear infinite;
       animation-delay: var(--delay);
     }
 
-    /* ANIMATION: von unten nach oben */
     @keyframes floatUp {
       0% {
         transform: translateX(-50%) translateY(0) scale(0.8);
@@ -86,48 +73,135 @@
       }
     }
 
-    /* 
-      LOGO CONTAINER 
-      – zentriert in der Mitte, 
-      liegt über den Icons, da z-index: 2
-    */
     .logo-container {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
       display: flex;
-      align-items: center;   /* Vertikal zentrieren */
-      justify-content: center; /* Horizontal zentrieren */
+      align-items: center;
+      justify-content: center;
       z-index: 2;
     }
 
-    /* LOGO SELBST 
-       Hier kannst du z.B. die max-Größe anpassen */
     .logo-container img {
-      max-width: 40%; 
+      max-width: 40%;
       height: auto;
+      animation: pulse 3s ease-in-out infinite;
     }
 
+    .top-bar {
+      backdrop-filter: blur(8px);
+      background-color: rgba(0, 0, 0, 0.4);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      z-index: 3;
+    }
+
+    .menu-container {
+      display: flex;
+      gap: 15px;
+    }
+
+    select {
+      background: transparent;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 1.275em;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    select:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #00ffff;
+      cursor: pointer;
+    }
+
+    .bottom-links {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+    }
+
+    .bottom-links a {
+      background: transparent;
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 1.275em;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .bottom-links a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #00ffff;
+      text-decoration: underline;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
-
   <div class="hero">
-    <!-- Hintergrund-Icons -->
     <div class="icons-container" id="iconsContainer"></div>
 
-    <!-- Logo in der Mitte -->
     <div class="logo-container">
-      <img src="https://pgeh-dev.github.io/axessence/Axessence_white.png" alt="Axessence Logo">
+      <img src="/mnt/data/Axessence_white.png" alt="Axessence Logo">
+    </div>
+
+    <div class="top-bar">
+      <div class="menu-container">
+        <select id="menu1">
+          <option>Produkte</option>
+          <option>Produkt A</option>
+          <option>Produkt B</option>
+        </select>
+        <select id="menu2">
+          <option>Pricing</option>
+          <option>Basic</option>
+          <option>Premium</option>
+        </select>
+        <select id="menu3">
+          <option>Technologie</option>
+          <option>AI</option>
+          <option>Cloud</option>
+        </select>
+      </div>
+      <div class="language-menu">
+        <select id="languageSwitcher">
+          <option value="de">Deutsch 🇩🇪</option>
+          <option value="en">English 🇬🇧</option>
+          <option value="fr">Français 🇫🇷</option>
+          <option value="it">Italiano 🇮🇹</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="bottom-links">
+      <a href="#">Impressum</a>
+      <a href="#">Kontakt</a>
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const iconsContainer = document.getElementById('iconsContainer');
-
-      // Beispiel-Links zu KI-Icons (PNG)
       const iconUrls = [
         "https://cdn-icons-png.flaticon.com/512/6209/6209298.png",
         "https://cdn-icons-png.flaticon.com/512/6207/6207990.png",
@@ -135,29 +209,33 @@
         "https://cdn-icons-png.flaticon.com/512/10860/10860681.png",
         "https://cdn-icons-png.flaticon.com/512/3252/3252607.png"
       ];
-
-      const iconCount = 20; // Anzahl der Icons
+      const iconCount = 20;
 
       for (let i = 0; i < iconCount; i++) {
         const iconDiv = document.createElement('div');
         iconDiv.classList.add('icon');
-
-        // Zufälliges Icon wählen
         const randomIconUrl = iconUrls[Math.floor(Math.random() * iconUrls.length)];
         iconDiv.style.backgroundImage = `url(${randomIconUrl})`;
-
-        // Zufällige Startverzögerung
-        const randomDelay = Math.random() * 10 + "s";
-        iconDiv.style.setProperty('--delay', randomDelay);
-
-        // Zufällige horizontale Position
-        const randomLeft = Math.random() * 100;
-        iconDiv.style.left = randomLeft + '%';
-
+        iconDiv.style.setProperty('--delay', Math.random() * 10 + "s");
+        iconDiv.style.left = Math.random() * 100 + '%';
         iconsContainer.appendChild(iconDiv);
       }
+
+      const translations = {
+        de: ["Produkte", "Pricing", "Technologie"],
+        en: ["Products", "Pricing", "Technology"],
+        fr: ["Produits", "Tarification", "Technologie"],
+        it: ["Prodotti", "Prezzi", "Tecnologia"]
+      };
+
+      document.getElementById("languageSwitcher").addEventListener("change", function() {
+        const lang = this.value;
+        const [m1, m2, m3] = translations[lang];
+        document.getElementById("menu1").options[0].text = m1;
+        document.getElementById("menu2").options[0].text = m2;
+        document.getElementById("menu3").options[0].text = m3;
+      });
     });
   </script>
-
 </body>
 </html>
